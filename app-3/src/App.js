@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state={
+      userChoice:'',
+      foods:['spaghetti', 'ice cream', 'sushi','bologna','cheese'],
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+ 
+  handleChange(event){
+    this.setState({
+      userChoice:event.target.value
+    })
+  }
   render() {
+    let foodToDisplay = this.state.foods.filter((element,index)=>{return element.includes(this.state.userChoice)}).map((element,index)=>{
+      return <h2 key={index}>{element}</h2>
+    })
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+       <input value={this.userChoice} onChange={this.handleChange} />
+       {foodToDisplay}
       </div>
     );
   }
